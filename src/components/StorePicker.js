@@ -1,15 +1,32 @@
-import React from 'react';
+import React from "react";
+import { getFunName } from "../helpers";
 
 class StorePicker extends React.Component {
-    render() {
-        return (
-            <form className="store-selector">
-                <h2>Please Enter a Store</h2>
-                <input type="text" required placeholder="Store Name" />
-                <button type="submit">Visit Store</button>
-            </form>
-        )
-    }
+  // myInput = React.createRef();
+
+  goToStore = event => {
+    // 1. Stop the form from submiting
+    event.preventDefault();
+    // 2. Get the text from that input
+    console.log(this.myInput.value);
+    // 3. Change the page to /store/whatever-they-entered
+    this.props.history.push(`/store/something`);
+  };
+  render() {
+    return (
+      <form className="store-selector" onSubmit={this.goToStore}>
+        <h2>Please Enter a Store</h2>
+        <input
+          type="text"
+          ref={myInput => (this.myInput = myInput)}
+          required
+          placeholder="Store Name"
+          defaultValue={getFunName()}
+        />
+        <button type="submit">Visit Store</button>
+      </form>
+    );
+  }
 }
 
-export default StorePicker
+export default StorePicker;
